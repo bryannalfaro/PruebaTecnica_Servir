@@ -15,7 +15,11 @@ class ModelDB(object):
                         ) 
         
         self.cursor = self.db_connection.cursor()
-
+    #GET DEPARTMENT BY CODE
+    def getDepartmentByCode(self, code_dept):
+        self.cursor.execute('SELECT * FROM department WHERE code_dept = %s', (code_dept,))
+        return self.cursor.fetchone()
+    #ALL DEPARTMENTS AND EMPLOYEES
     def getAllDepartments(self):
         self.cursor.execute('''
                             SELECT * FROM department
@@ -29,3 +33,17 @@ class ModelDB(object):
                             ''')
         
         return self.cursor.fetchall()
+    
+    #CREATE DEPARTMENTS AND EMPLOYEES
+    def createDepartment(self, code_dept, name_dept, description_dept):
+        code_exist  = self.getDepartmentByCode(code_dept)
+        if code_exist != None:
+            return 'EXISTE DEPARTAMENTO'
+        else:
+            print(code_dept, name_dept, description_dept)
+            self.cursor.execute('''
+                        INSERT INTO department (code_dept, name_dept, description_dept) VALUES 
+                            (%s, %s, %s)''',(code_dept, name_dept, description_dept)) 
+            self.db_connection.commit()
+        
+        

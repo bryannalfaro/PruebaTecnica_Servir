@@ -8,18 +8,18 @@
 </head>
 <body class="container d-flex flex-column align-items-center justify-content-center h-100">
         <h1>Crear nuevo departamento</h1>
-        <form>
+        <form method="POST" action="{{ url_for('new_department')}}">
             <div class="form-group">
               <label for="code-dept">Codigo</label>
-              <input type="text" class="form-control" id="code-dept">
+              <input type="text" class="form-control" id="code-dept" name="code-dept">
             </div>
             <div class="form-group">
               <label for="name-dept">Nombre</label>
-              <input type="text" class="form-control" id="name-dept">
+              <input type="text" class="form-control" id="name-dept" name="name-dept">
             </div>
             <div class="form-group">
                 <label for="description-dept">Descripcion</label>
-                <textarea class="form-control" id="description-dept" rows="3"></textarea>
+                <textarea class="form-control" id="description-dept" name="description-dept" rows="3"></textarea>
               </div>
             
             <button type="submit" class="btn btn-primary">Crear</button>
