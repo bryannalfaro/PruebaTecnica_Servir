@@ -1,23 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for 
 import psycopg2 
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+from decouple import config
   
 app = Flask(__name__) 
-
+  
 # Connect to the database 
 conn = psycopg2.connect(
-    dbname=os.getenv('DB_CONNECTION'),
-    user=os.getenv('USER'), 
-    password=os.getenv('PASSWORD_DB'), 
-    host=os.getenv('HOST'), 
-    port=os.getenv('PORT'),
+    dbname=config('DB_CONNECTION'), 
+    user=config('USER'), 
+    password=config('PASSWORD_DB'), 
+    host=config('HOST'), 
+    port=config('PORT'),
 ) 
 
 cur = conn.cursor() 
-
+  
 cur.execute( 
     '''SELECT * FROM department''') 
   
