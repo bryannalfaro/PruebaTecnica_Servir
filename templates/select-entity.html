@@ -8,32 +8,32 @@
     
         <title>Sistema de gestion</title>
     </head>
-<body class="body-main">
-    <div class="cards">
+<body class="d-flex justify-content-center align-items-center bg-secondary ">
+    <div class="d-flex flex-row align-items-center justify-content-center w-100 h-auto">
         <div class="card" style="width: 25rem;">
-            <img src="../static/images/employee_card.jpg" class="card-img-top" alt="...">
+            <img src="../static/images/employee_card.jpg" class="card-img-top w-100 " alt="...">
             <div class="card-body">
               <h5 class="card-title">Empleados</h5>
               <p class="card-text">Gestiona los empleados de la organizacion</p>
               <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary">Listar</button>
-                <button type="button" class="btn btn-secondary">Crear</button>
-                <button type="button" class="btn btn-secondary">Eliminar</button>
-                <button type="button" class="btn btn-secondary">Actualizar</button>
+                <a type="button" class="btn btn-secondary" href="{{ url_for('all_employees') }}">Listar</a>
+                <a type="button" class="btn btn-secondary">Crear</a>
+                <a type="button" class="btn btn-secondary">Eliminar</a>
+                <a type="button" class="btn btn-secondary">Actualizar</a>
               </div>
             </div>
           </div>
     
           <div class="card" style="width: 25rem;">
-            <img src="../static/images/department_card.jpg" class="card-img-top" alt="...">
+            <img src="../static/images/department_card.jpg" class="card-img-top w-100" alt="...">
             <div class="card-body">
               <h5 class="card-title">Departamentos</h5>
-              <p class="card-text">Gestiona los empleados de la organizacion</p>
+              <p class="card-text">Gestiona los departamentos de la organizacion</p>
               <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary">Listar</button>
-                <button type="button" class="btn btn-secondary">Crear</button>
-                <button type="button" class="btn btn-secondary">Eliminar</button>
-                <button type="button" class="btn btn-secondary">Actualizar</button>
+                <a type="button" class="btn btn-secondary" href="{{ url_for('all_departments') }}">Listar</a>
+                <a type="button" class="btn btn-secondary">Crear</a>
+                <a type="button" class="btn btn-secondary">Eliminar</a>
+                <a type="button" class="btn btn-secondary">Actualizar</a>
               </div>
               
               </div>

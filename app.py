@@ -1,7 +1,9 @@
 from flask import Flask, render_template
-
+from model_system import ModelDB
 app = Flask(__name__)
 
+
+model_db = ModelDB()
 
 @app.route('/')
 def hello():
@@ -14,7 +16,8 @@ def select_entity():
 #employees
 @app.route('/all-employees')
 def all_employees():
-    return render_template('all-employees.html')
+    employees = model_db.getAllEmployees()
+    return render_template('all-employees.html', employees=employees)
 @app.route('/new-employee')
 def new_employee():
     return render_template('new-employee.html')
@@ -28,7 +31,9 @@ def edit_employee():
 #departments
 @app.route('/all-departments')
 def all_departments():
-    return render_template('all-departments.html')
+    departments = model_db.getAllDepartments()
+    return render_template('all-departments.html', departments=departments)
+
 @app.route('/new-department')
 def new_department():
     return render_template('new-department.html')
@@ -38,6 +43,8 @@ def del_department():
 @app.route('/edit-department')
 def edit_department():
     return render_template('edit-department.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -8,16 +8,19 @@
 
     <title>Sistema de gestion</title>
 </head>
-<body class="body-main">
-    <div class="left-banner">
-        <div class="title-custom">
-            <h1>Bienvenido</h1>
+<body class="w-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4  d-flex flex-column justify-content-center align-items-center bg-secondary">
+                <div class="d-flex align-items-center justify-content-center w-100 h-auto">
+                    <h1>Bienvenido</h1>
+                </div>
+                <a class="btn btn-dark d-flex h-auto justify-content-center align-items-center btn-lg" href="{{ url_for('select_entity') }}">Login</a>
+            </div>
+            <div class="col-md-8 d-flex flex-column w-70">
+                <img src="../static/images/employees.jpg" alt="employees">
+            </div>
         </div>
-        <a class="btn btn-dark custom-btn btn-lg" href="{{ url_for('select_entity') }}">Login</a>
     </div>
-    <div class="welcome-message">  
-        <img src="../static/images/employees.jpg" alt="employees">    
-    </div>
-    
 </body>
 </html>
