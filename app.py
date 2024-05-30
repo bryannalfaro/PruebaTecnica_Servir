@@ -62,9 +62,31 @@ def del_employee():
         return redirect(url_for('select_entity'))
 
     return render_template('del-employee.html', employees=employees)
-@app.route('/edit-employee')
+@app.route('/edit-employee', methods=['POST', 'GET'])
 def edit_employee():
-    return render_template('edit-employee.html')
+    departments = model_db.getAllDepartments()
+    if request.method == 'POST':
+        code_employee = request.form.get('code-employee')
+        name_employee = request.form.get('name-employee')
+        last_employee = request.form.get('last-employee')
+        born_employee = request.form.get('born-employee')
+        code_dept = request.form.get('code-dept')
+        #No update department code
+        if code_dept == '':
+            update_employee_without_code  = model_db.updateEmployeeWithoutDept(code_employee, name_employee, last_employee, born_employee)
+            if update_employee_without_code != 'None':
+                flash('No employee with code ', 'Error')
+            else:
+                flash('Success updating', 'Success')
+        #Update with department code
+        else:
+            update_employee_with_code = model_db.updateEmployeeWithDept(code_employee, name_employee, last_employee, born_employee, code_dept)
+            if update_employee_with_code != 'None':
+                flash('Missing one code', 'Error')
+            else:
+                flash('Success updating', 'Success')
+        return redirect(url_for('select_entity'))
+    return render_template('edit-employee.html', departments=departments)
 
 #departments
 @app.route('/all-departments')
@@ -108,9 +130,30 @@ def del_department():
                 flash('Error en eliminacion', 'Error')
         return redirect(url_for('select_entity'))
     return render_template('del-department.html', departments = departments)
-@app.route('/edit-department')
+
+@app.route('/edit-department', methods = ['POST', 'GET'])
 def edit_department():
-    return render_template('edit-department.html')
+    departments = model_db.getAllDepartments()
+    if request.method == 'POST':
+        code_dept = request.form.get('code-dept')
+        name_dept = request.form.get('name-dept')
+        description_dept = request.form.get('description-dept')
+
+        if name_dept == '':
+            name_dept = 'No name provided'
+        elif description_dept == '':
+            description_dept = 'No description provided'
+        
+        update_department = model_db.updateDepartment(code_dept, name_dept, description_dept)
+        if update_department != 'None':
+
+                flash('CODIGO NO EXISTE', 'Error')
+        else:   
+            flash('ACTUALIZACION EXITOSA', 'Success')
+        return redirect(url_for('select_entity'))
+
+
+    return render_template('edit-department.html', departments = departments)
 
 
 
