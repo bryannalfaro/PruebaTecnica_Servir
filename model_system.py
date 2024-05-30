@@ -48,7 +48,7 @@ class ModelDB(object):
     def createDepartment(self, code_dept, name_dept, description_dept):
         code_exist  = self.getDepartmentByCode(code_dept)
         if code_exist != None:
-            return 'EXISTE DEPARTAMENTO'
+            return 'YA EXISTE DEPARTAMENTO'
         else:
             print(code_dept, name_dept, description_dept)
             self.cursor.execute('''
@@ -79,7 +79,7 @@ class ModelDB(object):
             else:
                 return 'EL DEPARTAMENTO TIENE EMPLEADOS'
         else:
-            return 'NO DEPARTMENT'
+            return 'NO EXISTE EL DEPARTAMENTO'
     
     def deleteEmployee(self, code_employee):
         code_exist = self.getEmployeeByCode(code_employee)
@@ -88,7 +88,7 @@ class ModelDB(object):
                         DELETE FROM employee WHERE code_employee = %s''',(code_employee,))
             self.db_connection.commit()
         else:
-            return 'NO EMPLOYEE'
+            return 'NO EXISTE EL EMPLEADO'
         
     #UPDATE EMPLOYEE AND DEPARTMENT
     def updateDepartment(self, code_department, name_dept, description_dept):
@@ -99,23 +99,23 @@ class ModelDB(object):
                 UPDATE department SET name_dept = %s , description_dept = %s WHERE code_dept = %s''',( name_dept, description_dept, code_department))
             self.db_connection.commit()
         else:
-            return 'NO DEPARTMENT'
+            return 'NO EXISTE EL DEPARTAMENTO CON ESE CODIGO'
     
     def updateEmployeeWithoutDept(self, code_employee, name_employee, last_employee, born_employee):
         code_employee_exist = self.getEmployeeByCode(code_employee)
-        if code_employee_exist != 'None':
+        if code_employee_exist != None:
             self.cursor.execute('''
                 UPDATE employee SET name_employee = %s, last_name_employee = %s, date_of_birth_employee = %s 
                                 WHERE code_employee = %s''',( name_employee, last_employee, born_employee, code_employee))
             self.db_connection.commit()
         else:
-            return 'NO EMPLOYEE'
+            return 'NO EXISTE EL EMPLEADO'
         
     def updateEmployeeWithDept(self, code_employee, name_employee, last_employee, born_employee, code_dept):
         code_employee_exist = self.getEmployeeByCode(code_employee)
         code_dept_exist = self.getDepartmentByCode(code_dept)
-        if code_employee_exist != 'None':
-            if code_dept_exist != 'None':
+        if code_employee_exist != None:
+            if code_dept_exist != None:
 
                 self.cursor.execute('''
                     UPDATE employee SET name_employee = %s, last_name_employee = %s, date_of_birth_employee = %s, 
@@ -123,6 +123,6 @@ class ModelDB(object):
                                     WHERE code_employee = %s''',( name_employee, last_employee, born_employee, code_dept, code_employee))
                 self.db_connection.commit()
             else:
-                return 'NO DEPARTMENT'
+                return 'NO EXISTE EL DEPARTAMENTO'
         else:
-            return 'NO EMPLOYEE'
+            return 'NO EXISTE EL EMPLEADO'
