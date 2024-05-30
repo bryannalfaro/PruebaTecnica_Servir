@@ -20,9 +20,26 @@ def select_entity():
 def all_employees():
     employees = model_db.getAllEmployees()
     return render_template('all-employees.html', employees=employees)
-@app.route('/new-employee')
+
+@app.route('/new-employee', methods=['POST', 'GET'])
 def new_employee():
-    return render_template('new-employee.html')
+    departments = model_db.getAllDepartments()
+    if request.method == "POST":
+        name_employee = request.form.get('name-employee')
+        last_name = request.form.get('last-employee')
+        born_date = request.form.get('born-employee')
+        code_dept = request.form.get('department-code')
+
+        if name_employee == '' or last_name == '' or code_dept == '':
+            flash('Please enter required data', 'Null data')
+        else:
+            insert_employee = model_db.createEmployee(name_employee, last_name, born_date, code_dept)
+            if insert_employee != None:
+                flash('Employee created successfully', 'Success')
+            else:
+                flash('Employee not created successfully', 'Error')
+    return render_template('new-employee.html', departments=departments)
+
 @app.route('/del-employee')
 def del_employee():
     return render_template('del-employee.html')

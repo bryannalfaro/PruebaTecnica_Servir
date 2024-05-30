@@ -45,5 +45,14 @@ class ModelDB(object):
                         INSERT INTO department (code_dept, name_dept, description_dept) VALUES 
                             (%s, %s, %s)''',(code_dept, name_dept, description_dept)) 
             self.db_connection.commit()
-        
+    
+    def createEmployee(self, name_employee, last_employee, birth_employee, code_employee):
+        code_exist = self.getDepartmentByCode(code_employee)
+        if code_exist != None:
+            self.cursor.execute('''
+                        INSERT INTO employee (name_employee, last_name_employee, date_of_birth_employee, dept_employee)
+                                VALUES (%s, %s, %s, %s)''',(name_employee, last_employee, birth_employee, code_employee))
+            self.db_connection.commit()
+        else:
+            return 'NO EXISTE DEPARTAMENTO'
         
