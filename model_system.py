@@ -19,6 +19,16 @@ class ModelDB(object):
     def getDepartmentByCode(self, code_dept):
         self.cursor.execute('SELECT * FROM department WHERE code_dept = %s', (code_dept,))
         return self.cursor.fetchone()
+    
+    #GET EMPLOYEE BY CODE
+    def getEmployeeByCode(self, code_employee):
+        self.cursor.execute('SELECT * FROM employee WHERE code_employee = %s', (code_employee,))
+        return self.cursor.fetchone()
+    
+    #GET EMPLOYEES OF DEPARTMENT
+    def getNumEmployees(self, code_dept):
+        self.cursor.execute('SELECT COUNT(dept_employee) from employee where dept_employee= %s', (code_dept,))
+        return self.cursor.fetchone()  
     #ALL DEPARTMENTS AND EMPLOYEES
     def getAllDepartments(self):
         self.cursor.execute('''
@@ -55,4 +65,29 @@ class ModelDB(object):
             self.db_connection.commit()
         else:
             return 'NO EXISTE DEPARTAMENTO'
+        
+    #DELETE EMPLOYEE AND DEPARTMENT
+    def deleteDepartment(self, code_department):
+        code_exist = self.getDepartmentByCode(code_department)
+        num_employees = self.getNumEmployees(code_department)
+
+        if code_exist != None:
+            if num_employees[0] == 0:
+                self.cursor.execute('''
+                            DELETE FROM department WHERE code_dept = %s''',(code_department,))
+                self.db_connection.commit()
+            else:
+                return 'EL DEPARTAMENTO TIENE EMPLEADOS'
+        else:
+            return 'NO DEPARTMENT'
+    
+    def deleteEmployee(self, code_employee):
+        code_exist = self.getEmployeeByCode(code_employee)
+        if code_exist != None:
+            self.cursor.execute('''
+                        DELETE FROM employee WHERE code_employee = %s''',(code_employee,))
+            self.db_connection.commit()
+        else:
+            return 'NO EMPLOYEE'
+        
         

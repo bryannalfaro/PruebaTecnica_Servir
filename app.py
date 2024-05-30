@@ -40,9 +40,24 @@ def new_employee():
                 flash('Employee not created successfully', 'Error')
     return render_template('new-employee.html', departments=departments)
 
-@app.route('/del-employee')
+@app.route('/del-employee', methods=['POST', 'GET'])
 def del_employee():
-    return render_template('del-employee.html')
+    employees = model_db.getAllEmployees()
+
+    if request.method == 'POST':
+        print(request)
+        code_employee = request.form.get('code-employee')
+        print(code_employee)
+        if code_employee != '':
+            delete_employee = model_db.deleteEmployee(code_employee)
+            if delete_employee != None:
+                flash('No existe ', 'Error')
+            else:
+                flash('Employee deleted successfully', 'Success')
+        else:
+            flash('Employee not deleted successfully', 'Null data')
+
+    return render_template('del-employee.html', employees=employees)
 @app.route('/edit-employee')
 def edit_employee():
     return render_template('edit-employee.html')
@@ -73,9 +88,20 @@ def new_department():
         
 
     return render_template('new-department.html')
-@app.route('/del-department')
+@app.route('/del-department', methods=['POST', 'GET'])
 def del_department():
-    return render_template('del-department.html')
+    departments = model_db.getAllDepartments()
+    if request.method == 'POST':
+        code_dept = request.form.get('department-code')
+        if code_dept=='':
+            flash('Debes ingresar un departamento', 'Null data')
+        else:
+            delete_dept = model_db.deleteDepartment(code_dept)
+            if delete_dept == 'None':
+                flash('Exito', 'Success')
+            else:
+                flash('Error en eliminacion', 'Error')
+    return render_template('del-department.html', departments = departments)
 @app.route('/edit-department')
 def edit_department():
     return render_template('edit-department.html')
