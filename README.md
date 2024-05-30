@@ -74,6 +74,9 @@ For run the project you need to have Python 3 in your PC
    ```sh
    pip install python-dotenv
    ```
+   ```sh
+   pip install python-decouple
+   ```
 4. Now you can run the program
    ```sh
     flask run
