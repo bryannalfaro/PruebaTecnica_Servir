@@ -102,7 +102,7 @@ For run the project you need to have Python 3 in your PC
 
 Bryann Alfaro - [bryannalfaro](https://github.com/bryannalfaro) - balfaro2002@gmail.com
 
-Project Link: [https://github.com/bryannalfaro/Redes-P1-XMPP](https://github.com/bryannalfaro/Redes-P1-XMPP)
+Project Link: [https://github.com/bryannalfaro/PruebaTecnica_Servir](https://github.com/bryannalfaro/PruebaTecnica_Servir)
 
 
 
