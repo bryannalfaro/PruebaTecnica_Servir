@@ -77,6 +77,14 @@ For run the project you need to have Python 3 in your PC
    ```sh
    pip install python-decouple
    ```
+3. You have to create a .env file for the environment variables with the following syntax
+```sh
+  DB_CONNECTION = name-of-db
+  USER= user-db
+  PASSWORD_DB= password-db
+  HOST= host-db (usually localhost)
+  PORT= port-db
+```
 4. Now you can run the program
    ```sh
     flask run
