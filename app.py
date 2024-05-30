@@ -36,7 +36,7 @@ def new_employee():
         else:
             insert_employee = model_db.createEmployee(name_employee, last_name, born_date, code_dept)
             if insert_employee != None:
-                flash('NO SE PUDO CREAR EL USUARIO', 'Error')
+                flash(insert_employee, 'Error')
                 return redirect(url_for('new_employee'))
                 
             else:
@@ -54,17 +54,15 @@ def del_employee():
         if code_employee != '':
             delete_employee = model_db.deleteEmployee(code_employee)
             if delete_employee != None:
-                flash('NO EXISTE', 'Error')
+                flash(delete_employee, 'Error')
                 return redirect(url_for('del_employee'))
             else:
                 return redirect(url_for('select_entity'))
         else:
             flash('NO SE PUDO ELIMINAR', 'Null data')
             return redirect(url_for('del_employee'))
-        
-        
-
     return render_template('del-employee.html', employees=employees)
+
 @app.route('/edit-employee', methods=['POST', 'GET'])
 def edit_employee():
     departments = model_db.getAllDepartments()
@@ -78,7 +76,7 @@ def edit_employee():
         if code_dept == '':
             update_employee_without_code  = model_db.updateEmployeeWithoutDept(code_employee, name_employee, last_employee, born_employee)
             if update_employee_without_code != None:
-                flash('No employee with code ', 'Error')
+                flash(update_employee_without_code, 'Error')
                 return redirect(url_for('edit_employee'))
             else:
                 return redirect(url_for('select_entity'))
@@ -86,12 +84,11 @@ def edit_employee():
         else:
             update_employee_with_code = model_db.updateEmployeeWithDept(code_employee, name_employee, last_employee, born_employee, code_dept)
             if update_employee_with_code != None:
-                return redirect(url_for('select_entity'))
-            else:
-                flash('Missing one code', 'Error')
+                flash(update_employee_with_code, 'Error')
                 return redirect(url_for('edit_employee'))
+            else:
+                return redirect(url_for('select_entity'))
                 
-        
     return render_template('edit-employee.html', departments=departments)
 
 #departments
@@ -115,7 +112,7 @@ def new_department():
             if insert_dept==None:
                 return redirect(url_for('select_entity'))
             else:
-                flash('Codigo existente', 'Error')
+                flash(insert_dept, 'Error')
                 return redirect(url_for('new_department'))
     return render_template('new-department.html')
 
@@ -153,7 +150,7 @@ def edit_department():
         update_department = model_db.updateDepartment(code_dept, name_dept, description_dept)
         if update_department != None:
 
-                flash('CODIGO NO EXISTE', 'Error')
+                flash(update_department, 'Error')
                 return redirect(url_for('edit_department'))
         else:   
             return redirect(url_for('select_entity'))
