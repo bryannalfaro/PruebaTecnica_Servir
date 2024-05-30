@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request, flash, redirect, url_for
 from model_system import ModelDB
 app = Flask(__name__)
 
@@ -38,6 +38,8 @@ def new_employee():
                 flash('Employee created successfully', 'Success')
             else:
                 flash('Employee not created successfully', 'Error')
+        
+        return redirect(url_for('select_entity'))
     return render_template('new-employee.html', departments=departments)
 
 @app.route('/del-employee', methods=['POST', 'GET'])
@@ -56,6 +58,8 @@ def del_employee():
                 flash('Employee deleted successfully', 'Success')
         else:
             flash('Employee not deleted successfully', 'Null data')
+        
+        return redirect(url_for('select_entity'))
 
     return render_template('del-employee.html', employees=employees)
 @app.route('/edit-employee')
@@ -83,6 +87,7 @@ def new_department():
                 flash('Exito', 'Success')
             else:
                 flash('Codigo existente', 'Error')
+        return redirect(url_for('select_entity'))
 
 
         
@@ -101,6 +106,7 @@ def del_department():
                 flash('Exito', 'Success')
             else:
                 flash('Error en eliminacion', 'Error')
+        return redirect(url_for('select_entity'))
     return render_template('del-department.html', departments = departments)
 @app.route('/edit-department')
 def edit_department():
